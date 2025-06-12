@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Создать аккаунт</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    {{ error }}<br>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Пароль</label>
+                        <input type="password" name="password1" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Подтверждение пароля</label>
+                        <input type="password" name="password2" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                    
+                    <div class="mt-3 text-center">
+                        Уже есть аккаунт? <a href="{% url 'authentication:login' %}">Войти</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,12 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Zubr | Список товаров</title>
-</head>
-<body>
-  {% for product in products %}
-   <a href="{% url 'shop:product' product.id %}">{{ product }}</a>
-  {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Карточки товаров -->
+    {% for product in products %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card product-card h-100">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.price }} руб.</p>
+                <a href="#" class="btn btn-primary">В корзину</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

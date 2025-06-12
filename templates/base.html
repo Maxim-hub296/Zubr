@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Магазин{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --accent-color: #36b9cc;
+        }
+
+        body {
+            padding-top: 56px; /* Отступ под фиксированный хедер */
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            transition: transform 0.2s;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+        }
+    </style>
+</head>
+<body>
+<!-- Хедер -->
+<header class="header fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark container">
+        <a class="navbar-brand" href="{% url 'shop:products' %}">Магазин</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shop:products' %}">Главная</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <form action="{% url 'authentication:logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link p-0 border-0"
+                                    style="background:none; cursor:pointer;">
+                                Выход
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authentication:login' %}">Авторизация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authentication:registration' %}">Регистрация</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Основной контент -->
+<main class="container my-5">
+    {% block content %}
+        <!-- Контент страниц будет здесь -->
+    {% endblock %}
+</main>
+
+<!-- Футер -->
+<footer class="footer">
+    <div class="container text-center">
+        <p>&copy; 2023 Интернет-магазин. Все права защищены.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

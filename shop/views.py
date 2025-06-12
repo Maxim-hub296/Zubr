@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product
 # Create your views here.
 
@@ -8,6 +9,7 @@ from .models import Product
 class ProductsListView(ListView):
     template_name = "shop/products_list.html"
     context_object_name = "products"
+    login_url = reverse_lazy("authentication:login")
 
     def get_queryset(self):
         return Product.objects.all()
