@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import Product
 # Create your views here.
 
@@ -15,3 +16,7 @@ class ProductsListView(ListView):
 class ProductView(DetailView):
     template_name = "shop/product.html"
     model = Product
+    login_url = reverse_lazy('products')
+
+class AboutView(TemplateView):
+    template_name = "shop/about.html"
