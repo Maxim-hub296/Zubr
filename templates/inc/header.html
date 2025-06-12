@@ -1,0 +1,67 @@
+<header class="header fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark container">
+        <a class="navbar-brand" href="{% url 'shop:products' %}">Магазин</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">  <!-- Добавлено align-items-center -->
+
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">
+                        <form action="{% url 'authentication:logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link p-0 border-0"
+                                    style="background:none; cursor:pointer;">
+                                Выход
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authentication:login' %}">Авторизация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'authentication:registration' %}">Регистрация</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+<style>
+    .header {
+        background-color: var(--primary-color);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    }
+
+    .navbar-nav {
+        height: 100%; /* Занимает всю высоту панели */
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center; /* Центрирует по вертикали */
+        height: 100%;
+    }
+
+    .nav-form {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-link {
+        text-decoration: none !important; /* Убирает подчеркивание */
+        color: inherit !important; /* Наследует цвет ссылок */
+        transition: all 0.3s ease;
+    }
+
+    .btn-link:hover {
+        opacity: 0.8;
+    }
+
+</style>
