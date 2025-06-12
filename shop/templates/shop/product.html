@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Zubr | {{ object.name }}</title>
-</head>
-<body>
-<h1>{{ object.name }}</h1>
-<h1>{{ object.description }}</h1>
-<h1>{{ object.price }}</h1>
-<img src="{{ object.image.url }}" alt="{{ product.name }}">
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Zubr | {{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 col-md-6 mb-4">
+        <img src="{{ object.image.url }}" alt="{{ object.name }}" class="product-image img-fluid rounded w-100">
+    </div>
+    <div class="col-12 col-md-6">
+        <h1 class="mb-3">{{ object.name }}</h1>
+        <h4 class="text-muted mb-4">{{ object.description }}</h4>
+        <h3 class="text-primary">{{ object.price }} ₽</h3>
+    </div>
+</div>
+{% endblock %}
